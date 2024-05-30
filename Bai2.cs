@@ -13,7 +13,7 @@ namespace NumericConversion
             int intNumber = (int)realNumber;
             long longNumber = (long)realNumber;
 
-            Console.WriteLine("The number you entered is {realNumber}, as an int is {intNumber} and as a long is {longNumber}");
+            Console.WriteLine($"The number you entered is {realNumber}, as an int is {intNumber} and as a long is {longNumber}");
         }
     }
 }
