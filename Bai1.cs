@@ -12,7 +12,7 @@ namespace DataTransformation
 
             double doubleNumber = (double)intNumber;
 
-            Console.WriteLine("The number you entered is {intNumber} and as a double is {doubleNumber}");
+            Console.WriteLine($"The number you entered is {intNumber} and as a double is {doubleNumber}");
         }
     }
 }
