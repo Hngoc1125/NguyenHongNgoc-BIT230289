@@ -21,6 +21,7 @@ namespace StringOperations
 
             Console.WriteLine("Nhap mot chuoi cu:");
             string oldSubstring = Console.ReadLine();
+            
             Console.WriteLine("Nhap mot chuoi moi:");
             string newSubstring = Console.ReadLine();
 
