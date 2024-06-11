@@ -1,0 +1,41 @@
+﻿using System;
+using System.IO;
+
+namespace BaiTap11
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Nhập tên file: ");
+            string fileName = Console.ReadLine();
+
+            Console.Write("Nhập nội dung: ");
+            string content = Console.ReadLine();
+
+            // Ghi nội dung vào file
+            try
+            {
+                File.WriteAllText(fileName, content);
+                Console.WriteLine("Đã ghi nội dung vào file.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi ghi file: {ex.Message}");
+            }
+
+            // Đọc nội dung từ file
+            try
+            {
+                string readContent = File.ReadAllText(fileName);
+                Console.WriteLine("\nNội dung đọc từ file:");
+                Console.WriteLine(readContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi đọc file: {ex.Message}");
+            }
+            Console.ReadLine();
+        }
+    }
+}
