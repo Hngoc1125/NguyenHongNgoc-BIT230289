@@ -1,0 +1,58 @@
+﻿using System;
+
+namespace BaiTap9
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Chọn phần muốn thực hiện:");
+            Console.WriteLine("1. Đảo ngược chuỗi");
+            Console.WriteLine("2. Đếm số lượng từ trong chuỗi");
+
+            Console.Write("Nhập lựa chọn (1-2): ");
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    ReverseString();
+                    break;
+                case 2:
+                    CountWords();
+                    break;
+                default:
+                    Console.WriteLine("Lựa chọn không hợp lệ!");
+                    break;
+            }
+            Console.ReadLine();
+        }
+
+        static void ReverseString()
+        {
+            Console.Write("Nhập chuỗi ký tự: ");
+            string input = Console.ReadLine();
+
+            // Đảo ngược chuỗi
+            string reversedString = string.Empty;
+            for (int i = input.Length - 1; i >= 0; i--)
+            {
+                reversedString += input[i];
+            }
+
+            Console.WriteLine("Chuỗi đảo ngược: " + reversedString);
+        }
+
+        static void CountWords()
+        {
+            Console.Write("Nhập chuỗi ký tự: ");
+            string input = Console.ReadLine();
+
+            // Đếm số lượng từ trong chuỗi
+            string[] words = input.Split(new char[] { ' ', ',', '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
+            int wordCount = words.Length;
+
+            Console.WriteLine("Số lượng từ trong chuỗi: " + wordCount);
+        }
+    }
+}
