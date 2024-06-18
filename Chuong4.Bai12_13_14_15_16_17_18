@@ -1,0 +1,199 @@
+﻿using System;
+using System.Text;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.OutputEncoding = Encoding.UTF8;
+        Console.InputEncoding = Encoding.UTF8;
+
+        Console.WriteLine("Chọn bài tập từ 12 đến 18:");
+        int choice = int.Parse(Console.ReadLine());
+
+        switch (choice)
+        {
+            case 12:
+                Baitap12();
+                break;
+            case 13:
+                Baitap13();
+                break;
+            case 14:
+                Baitap14();
+                break;
+            case 15:
+                Baitap15();
+                break;
+            case 16:
+                Baitap16();
+                break;
+            case 17:
+                Baitap17();
+                break;
+            case 18:
+                Baitap18();
+                break;
+            default:
+                Console.WriteLine("Lựa chọn không hợp lệ!");
+                break;
+        }
+        Console.ReadLine();
+    }
+
+    static ushort ReadUShort()
+    {
+        ushort result;
+        while (!ushort.TryParse(Console.ReadLine(), out result))
+        {
+            Console.WriteLine("Nhập sai. Vui lòng nhập lại:");
+        }
+        return result;
+    }
+
+    static byte ReadByteInRange(byte min, byte max)
+    {
+        byte result;
+        while (!byte.TryParse(Console.ReadLine(), out result) || result < min || result > max)
+        {
+            Console.WriteLine($"Nhập sai. Vui lòng nhập lại số trong khoảng {min} đến {max}:");
+        }
+        return result;
+    }
+
+    static float ReadFloat()
+    {
+        float result;
+        while (!float.TryParse(Console.ReadLine(), out result))
+        {
+            Console.WriteLine("Nhập sai. Vui lòng nhập lại:");
+        }
+        return result;
+    }
+
+    static int ReadInt()
+    {
+        int result;
+        while (!int.TryParse(Console.ReadLine(), out result))
+        {
+            Console.WriteLine("Nhập sai. Vui lòng nhập lại:");
+        }
+        return result;
+    }
+
+    static double ReadDouble()
+    {
+        double result;
+        while (!double.TryParse(Console.ReadLine(), out result))
+        {
+            Console.WriteLine("Nhập sai. Vui lòng nhập lại:");
+        }
+        return result;
+    }
+
+    static void Baitap12()
+    {
+        Console.WriteLine("Nhập số nguyên cần kiểm t:");
+        ushort n = ReadUShort();
+        Console.WriteLine($"Giá trị được nhập: {n}");
+        int sum = 0;
+        for (int i = 1; i <= n; i++)
+        {
+            sum += i * i;
+        }
+        Console.WriteLine($"Tổng bình phương các số từ 1 đến {n}: {sum}");
+    }
+
+    static void Baitap13()
+    {
+        Console.WriteLine("Nhập số nguyên trong khoảng 2 đến 10:");
+        byte n = ReadByteInRange(2, 10);
+        Console.WriteLine($"Giá trị được nhập: {n}");
+    }
+
+    static void Baitap14()
+    {
+        Console.WriteLine("Nhập giá trị số thực cần kiểm tr:");
+        float x = ReadFloat();
+        Console.WriteLine($"Giá trị được nhập: {x}");
+    }
+
+    static void Baitap15()
+    {
+        Console.WriteLine("Nhập số nguyên trong khoảng 2 đến 10:");
+        byte n = ReadByteInRange(2, 10);
+        Console.WriteLine($"Giá trị được nhập: {n}");
+
+        float[] array = new float[n];
+        for (int i = 0; i < n; i++)
+        {
+            Console.WriteLine($"Nhập phần tử thứ {i + 1}:");
+            array[i] = ReadFloat();
+        }
+
+        Console.WriteLine("Giá trị các phần tử của mảng:");
+        foreach (var item in array)
+        {
+            Console.WriteLine(item);
+        }
+    }
+
+    static void Baitap16()
+    {
+        Console.WriteLine("Nhập 2 số nguyên trong khoảng 2 đến 10:");
+        byte m = ReadByteInRange(2, 10);
+        byte n = ReadByteInRange(2, 10);
+
+        int[,] array = new int[m, n];
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Console.WriteLine($"Nhập phần tử [{i}, {j}]:");
+                array[i, j] = ReadInt();
+            }
+        }
+
+        Console.WriteLine("Giá trị các phần tử của mảng:");
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                Console.Write(array[i, j] + " ");
+            }
+            Console.WriteLine();
+        }
+
+        int sum = 0;
+        foreach (var item in array)
+        {
+            if (item % 2024 == 0)
+            {
+                sum += item;
+            }
+        }
+        Console.WriteLine($"Tổng các phần tử của mảng chia hết cho 2024: {sum}");
+    }
+
+    static void Baitap17()
+    {
+        Console.WriteLine("Nhập xâu ký tự:");
+        string st = Console.ReadLine();
+        if (st == "#")
+        {
+            Console.Beep();
+        }
+        else
+        {
+            int wordCount = st.Split(new char[] { ' ', '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries).Length;
+            Console.WriteLine($"Số từ của xâu kí tự: {wordCount}");
+        }
+    }
+
+    static void Baitap18()
+    {
+        Console.WriteLine("Nhập giá trị số thực:");
+        double x = ReadDouble();
+        Console.WriteLine($"Căn bậc 2 của {x}: {Math.Sqrt(x)}");
+    }
+}
