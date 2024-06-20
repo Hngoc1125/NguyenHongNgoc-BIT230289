@@ -1,0 +1,297 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace CombinedProgram
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            while (true)
+            {
+                Console.WriteLine("Chọn một chức năng(từ 1-7 hoặc 0 để thoát):");
+
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        ManageStudents();
+                        break;
+                    case "2":
+                        EnglishVietnameseDictionary();
+                        break;
+                    case "3":
+                        ManageProducts();
+                        break;
+                    case "4":
+                        FindMaxValue();
+                        break;
+                    case "5":
+                        GenericStackDemo();
+                        break;
+                    case "6":
+                        HashtableDemo();
+                        break;
+                    case "7":
+                        DictionaryDemo();
+                        break;
+                    case "0":
+                        return;
+                    default:
+                        Console.WriteLine("Lựa chọn không hợp lệ.");
+                        break;
+                }
+            }
+        }
+        // Bài tập 1: Quản lý danh sách sinh viên
+        static void ManageStudents()
+        {
+            List<Student> students = new List<Student>();
+            while (true)
+            {
+                Console.WriteLine("1. Thêm sinh viên mới");
+                Console.WriteLine("2. Hiển thị danh sách sinh viên");
+                Console.WriteLine("0. Quay lại menu chính");
+
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        Console.Write("Nhập tên sinh viên: ");
+                        string name = Console.ReadLine();
+                        Console.Write("Nhập lớp sinh viên: ");
+                        string className = Console.ReadLine();
+                        students.Add(new Student { Name = name, ClassName = className });
+                        break;
+                    case "2":
+                        foreach (var student in students)
+                        {
+                            Console.WriteLine($"Tên: {student.Name}, Lớp: {student.ClassName}");
+                        }
+                        break;
+                    case "0":
+                        return;
+                    default:
+                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+                        break;
+                }
+            }
+        }
+        // Bài tập 2: Từ điển Anh - Việt
+        static void EnglishVietnameseDictionary()
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            while (true)
+            {
+                Console.WriteLine("1. Thêm từ mới");
+                Console.WriteLine("2. Tra từ");
+                Console.WriteLine("0. Quay lại menu chính");
+
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        Console.Write("Nhập từ tiếng Anh: ");
+                        string englishWord = Console.ReadLine();
+                        Console.Write("Nhập nghĩa tiếng Việt: ");
+                        string vietnameseMeaning = Console.ReadLine();
+                        dictionary[englishWord] = vietnameseMeaning;
+                        break;
+                    case "2":
+                        Console.Write("Nhập từ tiếng Anh cần tra: ");
+                        englishWord = Console.ReadLine();
+                        if (dictionary.TryGetValue(englishWord, out vietnameseMeaning))
+                        {
+                            Console.WriteLine($"Nghĩa tiếng Việt: {vietnameseMeaning}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Không tìm thấy từ này trong từ điển.");
+                        }
+                        break;
+                    case "0":
+                        return;
+                    default:
+                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+                        break;
+                }
+            }
+        }
+        // Bài tập 3: Quản lý danh sách sản phẩm
+        static void ManageProducts()
+        {
+            ArrayList products = new ArrayList();
+            while (true)
+            {
+                Console.WriteLine("1. Thêm sản phẩm mới");
+                Console.WriteLine("2. Hiển thị danh sách sản phẩm");
+                Console.WriteLine("3. Tìm kiếm sản phẩm theo tên");
+                Console.WriteLine("0. Quay lại menu chính");
+
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        Console.Write("Nhập tên sản phẩm: ");
+                        string name = Console.ReadLine();
+                        Console.Write("Nhập mô tả sản phẩm: ");
+                        string description = Console.ReadLine();
+                        Console.Write("Nhập giá sản phẩm: ");
+                        double price = double.Parse(Console.ReadLine());
+                        products.Add(new Product { Name = name, Description = description, Price = price });
+                        break;
+                    case "2":
+                        foreach (Product product in products)
+                        {
+                            Console.WriteLine($"Tên: {product.Name}, Mô tả: {product.Description}, Giá: {product.Price}");
+                        }
+                        break;
+                    case "3":
+                        Console.Write("Nhập tên sản phẩm cần tìm: ");
+                        string searchName = Console.ReadLine();
+                        foreach (Product product in products)
+                        {
+                            if (product.Name.Contains(searchName))
+                            {
+                                Console.WriteLine($"Tên: {product.Name}, Mô tả: {product.Description}, Giá: {product.Price}");
+                            }
+                        }
+                        break;
+                    case "0":
+                        return;
+                    default:
+                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+                        break;
+                }
+            }
+        }
+        // Bài tập 4: Tìm giá trị lớn nhất
+        static void FindMaxValue()
+        {
+            Console.WriteLine("1. So sánh số nguyên");
+            Console.WriteLine("2. So sánh số thực");
+            Console.WriteLine("3. So sánh chuỗi");
+            Console.WriteLine("0. Quay lại menu chính");
+
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Nhập số nguyên thứ nhất: ");
+                    int int1 = int.Parse(Console.ReadLine());
+                    Console.Write("Nhập số nguyên thứ hai: ");
+                    int int2 = int.Parse(Console.ReadLine());
+                    Console.WriteLine($"Giá trị lớn nhất: {Max(int1, int2)}");
+                    break;
+                case "2":
+                    Console.Write("Nhập số thực thứ nhất: ");
+                    double double1 = double.Parse(Console.ReadLine());
+                    Console.Write("Nhập số thực thứ hai: ");
+                    double double2 = double.Parse(Console.ReadLine());
+                    Console.WriteLine($"Giá trị lớn nhất: {Max(double1, double2)}");
+                    break;
+                case "3":
+                    Console.Write("Nhập chuỗi thứ nhất: ");
+                    string str1 = Console.ReadLine();
+                    Console.Write("Nhập chuỗi thứ hai: ");
+                    string str2 = Console.ReadLine();
+                    Console.WriteLine($"Giá trị lớn nhất: {Max(str1, str2)}");
+                    break;
+                case "0":
+                    return;
+                default:
+                    Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+                    break;
+            }
+        }
+        static T Max<T>(T value1, T value2) where T : IComparable<T>
+        {
+            return value1.CompareTo(value2) > 0 ? value1 : value2;
+        }
+        // Bài tập 5: Generic Stack Class
+        static void GenericStackDemo()
+        {
+            MyStack<int> intStack = new MyStack<int>();
+            intStack.Push(1);
+            intStack.Push(2);
+            intStack.Push(3);
+            Console.WriteLine($"Pop: {intStack.Pop()}");
+            Console.WriteLine($"Pop: {intStack.Pop()}");
+
+            MyStack<string> stringStack = new MyStack<string>();
+            stringStack.Push("Hello");
+            stringStack.Push("World");
+            Console.WriteLine($"Pop: {stringStack.Pop()}");
+            Console.WriteLine($"Pop: {stringStack.Pop()}");
+        }
+        public class MyStack<T>
+        {
+            private List<T> elements = new List<T>();
+
+            public void Push(T item)
+            {
+                elements.Add(item);
+            }
+
+            public T Pop()
+            {
+                if (elements.Count == 0)
+                    throw new InvalidOperationException("Stack is empty.");
+                T item = elements[elements.Count - 1];
+                elements.RemoveAt(elements.Count - 1);
+                return item;
+            }
+        }
+        // Bài tập 6: Sử dụng Hashtable
+        static void HashtableDemo()
+        {
+            Hashtable hashtable = new Hashtable();
+            hashtable.Add("one", 1);
+            hashtable.Add("two", 2);
+            hashtable.Add("three", 3);
+
+            Console.WriteLine($"ContainsKey 'two': {hashtable.ContainsKey("two")}");
+            Console.WriteLine($"ContainsValue 3: {hashtable.ContainsValue(3)}");
+
+            Console.WriteLine($"Value for 'one': {hashtable["one"]}");
+
+            foreach (DictionaryEntry entry in hashtable)
+            {
+                Console.WriteLine($"Key: {entry.Key}, Value: {entry.Value}");
+            }
+        }
+        // Bài tập 7: Sử dụng từ điển
+        static void DictionaryDemo()
+        {
+            Dictionary<string, int> dictionary = new Dictionary<string, int>();
+            dictionary.Add("one", 1);
+            dictionary.Add("two", 2);
+            dictionary.Add("three", 3);
+
+            Console.WriteLine($"ContainsKey 'two': {dictionary.ContainsKey("two")}");
+
+            if (dictionary.TryGetValue("three", out int value))
+            {
+                Console.WriteLine($"Value for 'three': {value}");
+            }
+
+            foreach (var kvp in dictionary)
+            {
+                Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
+            }
+        }
+    }
+    class Student
+    {
+        public string Name { get; set; }
+        public string ClassName { get; set; }
+    }
+
+    class Product
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public double Price { get; set; }
+    }
+}
