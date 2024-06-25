@@ -1,0 +1,96 @@
+﻿using System;
+
+// Phần a: Khai báo lớp Person trừu tượng
+public abstract class Person
+{
+    // Các trường
+    public string Name { get; set; }
+    public int Age { get; set; }
+
+    // Constructor
+    public Person(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    // Phương thức trừu tượng ToString()
+    public abstract string ToString();
+}
+
+// Phần b: Lớp Student kế thừa từ Person
+public class Student : Person
+{
+    // Trường bổ sung
+    public string Major { get; set; }
+
+    // Constructor
+    public Student(string name, int age, string major)
+        : base(name, age)
+    {
+        Major = major;
+    }
+
+    // Ghi đè phương thức ToString()
+    public override string ToString()
+    {
+        return $"Sinh viên - Tên: {Name}, Tuổi: {Age}, Ngành học: {Major}";
+    }
+}
+
+// Phần a: Interface KPI
+public interface KPI
+{
+    double CalculateKPI();
+}
+
+// Phần d: Lớp Teacher kế thừa từ Person và implement interface KPI
+public class Teacher : Person, KPI
+{
+    // Trường bổ sung
+    public string Major { get; set; }
+    public int Publications { get; set; }
+
+    // Constructor
+    public Teacher(string name, int age, int publications)
+        : base(name, age)
+    {
+        Publications = publications;
+    }
+
+    // Ghi đè phương thức ToString()
+    public override string ToString()
+    {
+        return $"Giáo viên - Tên: {Name}, Tuổi: {Age}, Chuyên ngành: {Major}, Số bài báo: {Publications}";
+    }
+
+    // Implement phương thức từ interface KPI
+    public double CalculateKPI()
+    {
+        return 1.5 * Publications;
+    }
+}
+
+// Lớp chứa hàm Main
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Phần c: Khởi tạo đối tượng Student
+        Student sinhVien = new Student("Nguyễn Tiến Dũng", 20, "CNTT&TT");
+
+        // Hiển thị thông tin sinh viên
+        Console.WriteLine(sinhVien.ToString());
+
+        // Phần e: Khởi tạo đối tượng Teacher
+        Teacher giaoVien = new Teacher("Vũ Đức Việt", 38, 5);
+
+        // Hiển thị thông tin giáo viên
+        Console.WriteLine(giaoVien.ToString());
+
+        // Hiển thị điểm KPI của giáo viên
+        Console.WriteLine($"Điểm KPI của Giáo viên: {giaoVien.CalculateKPI()}");
+
+        Console.ReadLine();
+    }
+}
