@@ -1,0 +1,21 @@
+﻿using System;
+
+namespace Bai29
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            double[] numbers = { 1.5, 2.7, 3.9, 4.2, 5.1 };
+
+            array_double_1d ob = new array_double_1d();
+            double min = ob.FindMin(numbers);
+            double max = ob.FindMax(numbers);
+
+            Console.WriteLine("Min: " + min);
+            Console.WriteLine("Max: " + max);
+
+            Console.ReadLine();
+        }
+    }
+}
