@@ -1,0 +1,55 @@
+﻿using System;
+namespace Bai30
+{
+	public class EditNumbers
+	{
+        public static int nhapsonguyenduong()
+        {
+            int n = 0;
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Nhập số nguyên dương:");
+                    string input = Console.ReadLine();
+                    n = int.Parse(input);
+                    if (n <= 0)
+                    {
+                        throw new FormatException("Bạn phải nhập số nguyên dương.");
+                    }
+                    break;
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return n;
+        }
+
+        public static float nhapsothuc4byte()
+        {
+            float x = 0.0f;
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Nhập số thực:");
+                    string input = Console.ReadLine();
+                    x = float.Parse(input);
+                    break;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Bạn phải nhập số thực.");
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("Số bạn nhập quá lớn.");
+                }
+            }
+            return x;
+        }
+    }
+}
+
