@@ -1,0 +1,271 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
+class SinhVien
+{
+    public string MSSV { get; set; }
+    public string HoTen { get; set; }
+    public double DiemToan { get; set; }
+    public double DiemLy { get; set; }
+    public double DiemHoa { get; set; }
+
+    public double DiemTrungBinh
+    {
+        get { return (DiemToan + DiemLy + DiemHoa) / 3; }
+    }
+}
+
+class Program
+{
+    static List<SinhVien> danhSachSinhVien = new List<SinhVien>();
+
+    static void Main(string[] args)
+    {
+        while (true)
+        {
+            Console.WriteLine("Chọn chức năng:");
+            Console.WriteLine("1. Nhập số lượng sinh viên");
+            Console.WriteLine("2. Nhập thông tin sinh viên");
+            Console.WriteLine("3. Tính điểm trung bình");
+            Console.WriteLine("4. Hiển thị thông tin sinh viên");
+            Console.WriteLine("5. Hiển thị sinh viên đầu tiên có điểm trung bình > 9.5");
+            Console.WriteLine("6. Đếm số sinh viên có điểm trung bình > 5.0");
+            Console.WriteLine("7. Sắp xếp sinh viên theo điểm trung bình");
+            Console.WriteLine("8. Sắp xếp sinh viên theo họ tên");
+            Console.WriteLine("9. Ghi thông tin sinh viên vào file");
+            Console.WriteLine("10. Đọc thông tin sinh viên từ file");
+            Console.WriteLine("0. Thoát");
+
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    NhapSoLuongSinhVien();
+                    break;
+                case 2:
+                    NhapThongTinSinhVien();
+                    break;
+                case 3:
+                    TinhDiemTrungBinh();
+                    break;
+                case 4:
+                    HienThiThongTinSinhVien();
+                    break;
+                case 5:
+                    HienThiSinhVienDauTienDiemTrungBinhLonHon9_5();
+                    break;
+                case 6:
+                    DemSinhVienDiemTrungBinhLonHon5();
+                    break;
+                case 7:
+                    SapXepSinhVienTheoDiemTrungBinh();
+                    break;
+                case 8:
+                    SapXepSinhVienTheoHoTen();
+                    break;
+                case 9:
+                    GhiThongTinSinhVienVaoFile();
+                    break;
+                case 10:
+                    DocThongTinSinhVienTuFile();
+                    break;
+                case 0:
+                    return;
+                default:
+                    Console.WriteLine("Lựa chọn không hợp lệ.");
+                    break;
+            }
+        }
+    }
+
+    static void NhapSoLuongSinhVien()
+    {
+        try
+        {
+            Console.Write("Nhập số lượng sinh viên: ");
+            int soLuong = int.Parse(Console.ReadLine());
+            danhSachSinhVien.Capacity = soLuong;
+            Console.WriteLine($"Đã thiết lập số lượng sinh viên là {soLuong}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Lỗi: " + e.Message);
+        }
+    }
+
+    static void NhapThongTinSinhVien()
+    {
+        try
+        {
+            for (int i = 0; i < danhSachSinhVien.Capacity; i++)
+            {
+                SinhVien sv = new SinhVien();
+                Console.Write("Nhập mã số sinh viên: ");
+                sv.MSSV = Console.ReadLine();
+                Console.Write("Nhập họ tên sinh viên: ");
+                sv.HoTen = Console.ReadLine();
+                Console.Write("Nhập điểm toán: ");
+                sv.DiemToan = double.Parse(Console.ReadLine());
+                Console.Write("Nhập điểm lý: ");
+                sv.DiemLy = double.Parse(Console.ReadLine());
+                Console.Write("Nhập điểm hóa: ");
+                sv.DiemHoa = double.Parse(Console.ReadLine());
+                danhSachSinhVien.Add(sv);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Lỗi: " + e.Message);
+        }
+    }
+
+    static void TinhDiemTrungBinh()
+    {
+        try
+        {
+            foreach (var sv in danhSachSinhVien)
+            {
+                Console.WriteLine($"MSSV: {sv.MSSV}, Họ tên: {sv.HoTen}, Điểm trung bình: {sv.DiemTrungBinh}");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Lỗi: " + e.Message);
+        }
+    }
+
+    static void HienThiThongTinSinhVien()
+    {
+        try
+        {
+            foreach (var sv in danhSachSinhVien)
+            {
+                Console.WriteLine($"MSSV: {sv.MSSV}, Họ tên: {sv.HoTen}, Điểm trung bình: {sv.DiemTrungBinh}");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Lỗi: " + e.Message);
+        }
+    }
+
+    static void HienThiSinhVienDauTienDiemTrungBinhLonHon9_5()
+    {
+        try
+        {
+            foreach (var sv in danhSachSinhVien)
+            {
+                if (sv.DiemTrungBinh > 9.5)
+                {
+                    Console.WriteLine($"MSSV: {sv.MSSV}, Họ tên: {sv.HoTen}, Điểm trung bình: {sv.DiemTrungBinh}");
+                    break;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Lỗi: " + e.Message);
+        }
+    }
+
+    static void DemSinhVienDiemTrungBinhLonHon5()
+    {
+        try
+        {
+            int count = 0;
+            foreach (var sv in danhSachSinhVien)
+            {
+                if (sv.DiemTrungBinh > 5)
+                {
+                    count++;
+                    continue;
+                }
+            }
+            Console.WriteLine($"Số lượng sinh viên có điểm trung bình > 5.0: {count}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Lỗi: " + e.Message);
+        }
+    }
+
+    static void SapXepSinhVienTheoDiemTrungBinh()
+    {
+        try
+        {
+            danhSachSinhVien.Sort((sv1, sv2) => sv1.DiemTrungBinh.CompareTo(sv2.DiemTrungBinh));
+            Console.WriteLine("Đã sắp xếp sinh viên theo điểm trung bình.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Lỗi: " + e.Message);
+        }
+    }
+
+    static void SapXepSinhVienTheoHoTen()
+    {
+        try
+        {
+            danhSachSinhVien.Sort((sv1, sv2) => sv1.HoTen.CompareTo(sv2.HoTen));
+            Console.WriteLine("Đã sắp xếp sinh viên theo họ tên.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Lỗi: " + e.Message);
+        }
+    }
+
+    static void GhiThongTinSinhVienVaoFile()
+    {
+        try
+        {
+            Console.Write("Nhập tên file để ghi: ");
+            string fileName = Console.ReadLine();
+            using (StreamWriter writer = new StreamWriter(fileName))
+            {
+                foreach (var sv in danhSachSinhVien)
+                {
+                    writer.WriteLine($"{sv.MSSV},{sv.HoTen},{sv.DiemToan},{sv.DiemLy},{sv.DiemHoa},{sv.DiemTrungBinh}");
+                }
+            }
+            Console.WriteLine("Đã ghi thông tin sinh viên vào file.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Lỗi: " + e.Message);
+        }
+    }
+
+    static void DocThongTinSinhVienTuFile()
+    {
+        try
+        {
+            Console.Write("Nhập tên file để đọc: ");
+            string fileName = Console.ReadLine();
+            using (StreamReader reader = new StreamReader(fileName))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] parts = line.Split(',');
+                    SinhVien sv = new SinhVien
+                    {
+                        MSSV = parts[0],
+                        HoTen = parts[1],
+                        DiemToan = double.Parse(parts[2]),
+                        DiemLy = double.Parse(parts[3]),
+                        DiemHoa = double.Parse(parts[4])
+                    };
+                    danhSachSinhVien.Add(sv);
+                }
+            }
+            Console.WriteLine("Đã đọc thông tin sinh viên từ file.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Lỗi: " + e.Message);
+        }
+    }
+}

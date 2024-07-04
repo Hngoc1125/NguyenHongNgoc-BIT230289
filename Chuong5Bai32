@@ -1,0 +1,24 @@
+﻿using System;
+using Bai32;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Person obs = new Student
+        {
+            Name = "Nguyễn Hồng Ngọc",
+            Major = "ICT"
+        };
+
+        if (obs is Student student)
+        {
+            student.kpi();
+        }
+        else
+        {
+            Console.WriteLine("obs không phải là một Student.");
+        }
+        Console.ReadLine();
+    }
+}

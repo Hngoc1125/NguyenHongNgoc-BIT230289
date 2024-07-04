@@ -1,0 +1,99 @@
+﻿using System;
+
+namespace ComparisonExample
+{
+    // Lớp trừu tượng với phương thức và thuộc tính abstract
+    public abstract class DongVat
+    {
+        // Thuộc tính abstract
+        public abstract string Ten { get; set; }
+
+        // Phương thức abstract
+        public abstract void Keu();
+
+        // Phương thức abstract
+        public abstract void DiChuyen();
+    }
+
+    // Lớp với phương thức và thuộc tính virtual
+    public class DongVatCoVu : DongVat
+    {
+        // Thuộc tính virtual
+        public virtual string Loai { get; set; } = "Động vật có vú chung chung";
+
+        // Phương thức virtual
+        public virtual void NuoiCon()
+        {
+            Console.WriteLine("Nuôi con bằng sữa.");
+        }
+
+        // Triển khai thuộc tính abstract
+        public override string Ten { get; set; } = "Động vật chung chung";
+
+        // Triển khai phương thức abstract
+        public override void Keu()
+        {
+            Console.WriteLine("Tiếng kêu động vật chung chung");
+        }
+
+        // Triển khai phương thức abstract
+        public override void DiChuyen()
+        {
+            Console.WriteLine("Di chuyển động vật chung chung");
+        }
+    }
+
+    // Lớp con ghi đè các phương thức và thuộc tính abstract và virtual
+    public class Cho : DongVatCoVu
+    {
+        // Ghi đè thuộc tính virtual
+        public override string Loai { get; set; } = "Chó";
+
+        // Ghi đè phương thức virtual
+        public override void NuoiCon()
+        {
+            Console.WriteLine("Nuôi chó con bằng sữa.");
+        }
+
+        // Ghi đè thuộc tính abstract
+        public override string Ten { get; set; } = "Chó";
+
+        // Ghi đè phương thức abstract
+        public override void Keu()
+        {
+            Console.WriteLine("Gâu gâu!");
+        }
+
+        // Ghi đè phương thức abstract
+        public override void DiChuyen()
+        {
+            Console.WriteLine("Chạy bằng bốn chân");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Tạo đối tượng DongVatCoVu
+            DongVatCoVu dongVatCoVu = new DongVatCoVu();
+            Console.WriteLine($"Loại động vật: {dongVatCoVu.Loai}");
+            Console.WriteLine($"Tên động vật: {dongVatCoVu.Ten}");
+            dongVatCoVu.NuoiCon();
+            dongVatCoVu.Keu();
+            dongVatCoVu.DiChuyen();
+
+            Console.WriteLine();
+
+            // Tạo đối tượng Cho
+            Cho cho = new Cho();
+            Console.WriteLine($"Loại động vật: {cho.Loai}");
+            Console.WriteLine($"Tên động vật: {cho.Ten}");
+            cho.NuoiCon();
+            cho.Keu();
+            cho.DiChuyen();
+
+            Console.ReadLine();
+        }
+    }
+}

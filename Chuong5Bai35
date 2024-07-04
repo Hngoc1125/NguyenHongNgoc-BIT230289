@@ -1,0 +1,54 @@
+﻿using System;
+
+namespace ShapeExample
+{
+    // Lớp trừu tượng Shape
+    public abstract class Shape
+    {
+        private int _soDinh;
+
+        public int so_dinh
+        {
+            get { return _soDinh; }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Số đỉnh phải lớn hơn 0.");
+                }
+                _soDinh = value;
+            }
+        }
+    }
+
+    // Lớp tam_giac kế thừa từ Shape
+    public class tam_giac : Shape
+    {
+        public tam_giac()
+        {
+            so_dinh = 3; // Thiết lập số đỉnh cho tam giác là 3
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                // Tạo đối tượng tam_giac
+                tam_giac tg = new tam_giac();
+                Console.WriteLine($"Số đỉnh của tam giác: {tg.so_dinh}");
+
+                // Thử thiết lập số đỉnh không hợp lệ
+                Shape shape = new tam_giac();
+                shape.so_dinh = 0; // lỗi
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Lỗi: {ex.Message}");
+            }
+            Console.ReadLine();
+        }
+    }
+}
