@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        List<float> listf = new List<float> { 5.2f, -3.1f, 9.7f, 1.6f };
+
+        // Bổ sung các số vào cuối danh sách
+        listf.Add(3.5f);
+        listf.Add(-1.2f);
+        listf.Add(7.8f);
+        listf.Add(-5f);
+
+        // Duyệt danh sách theo chỉ số để hiển thị các phần tử
+        Console.WriteLine("Các phần tử của danh sách listf:");
+        for (int i = 0; i < listf.Count; i++)
+        {
+            Console.WriteLine($"Phần tử thứ {i}: {listf[i]}");
+        }
+
+        // Sắp xếp danh sách theo thứ tự tăng dần
+        listf.Sort();
+
+        // Hiển thị danh sách sau khi sắp xếp
+        Console.WriteLine("\nDanh sách sau khi sắp xếp tăng dần:");
+        foreach (float number in listf)
+        {
+            Console.WriteLine(number);
+        }
+        Console.ReadLine();
+    }
+}

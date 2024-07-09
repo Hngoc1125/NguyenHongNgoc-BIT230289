@@ -1,0 +1,43 @@
+﻿using System;
+
+public abstract class Person
+{
+    private string _name;
+    private string _id;
+
+    public string Name
+    {
+        get { return _name; }
+        set { _name = value; }
+    }
+
+    public string Id
+    {
+        get { return _id; }
+        set
+        {
+            if (value.Length == 8 && IsNumeric(value))
+            {
+                _id = value;
+            }
+            else
+            {
+                throw new ArgumentException("ID must be 8 digits numeric.");
+            }
+        }
+    }
+
+    private bool IsNumeric(string value)
+    {
+        foreach (char c in value)
+        {
+            if (!char.IsDigit(c))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    Person obs = null;
+
+}

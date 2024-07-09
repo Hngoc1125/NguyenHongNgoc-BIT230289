@@ -1,0 +1,24 @@
+﻿using System;
+
+class Program
+{
+    public static void Swap<T>(ref T a, ref T b)
+    {
+        T temp = a;
+        a = b;
+        b = temp;
+    }
+
+    static void Main()
+    {
+        int a = 5, b = 7;
+        double c = 3.4, d = 2.5;
+
+        Swap<int>(ref a, ref b);
+        Swap<double>(ref c, ref d);
+
+        Console.WriteLine($"After swapping integers: a = {a}, b = {b}");
+        Console.WriteLine($"After swapping doubles: c = {c}, d = {d}");
+        Console.ReadLine();
+    }
+}

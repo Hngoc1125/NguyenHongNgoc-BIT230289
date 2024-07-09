@@ -1,0 +1,42 @@
+﻿public abstract class Person
+{
+    private string _name;
+    private string _id;
+
+    public string Name
+    {
+        get { return _name; }
+        set { _name = value; }
+    }
+
+    public string Id
+    {
+        get { return _id; }
+        set
+        {
+            if (IsValidId(value))
+                _id = value;
+            else
+                throw new ArgumentException("Invalid ID format. Must be 8 digits.");
+        }
+    }
+
+    public Person(string name, string id)
+    {
+        Name = name;
+        Id = id;
+    }
+
+    private bool IsValidId(string id)
+    {
+        if (id.Length != 8)
+            return false;
+
+        foreach (char c in id)
+        {
+            if (!char.IsDigit(c))
+                return false;
+        }
+        return true;
+    }
+}
