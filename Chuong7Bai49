@@ -1,0 +1,55 @@
+﻿using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Khai báo các mảng để thử nghiệm
+        int[] intArray = { 5, 3, 9, 1, 4 };
+        uint[] uintArray = { 5U, 3U, 9U, 1U, 4U };
+        float[] floatArray = { 5.5f, 3.3f, 9.9f, 1.1f, 4.4f };
+        double[] doubleArray = { 5.55, 3.33, 9.99, 1.11, 4.44 };
+
+        // Khai báo biến dynamic để lưu giá trị nhỏ nhất
+        dynamic min_value;
+
+        // Gọi hàm với mảng số nguyên 4 byte
+        min_value = FindMinValue(intArray);
+        Console.WriteLine("Min value in intArray: " + min_value.ToString());
+
+        // Gọi hàm với mảng số nguyên 4 byte không dấu
+        min_value = FindMinValue(uintArray);
+        Console.WriteLine("Min value in uintArray: " + min_value.ToString());
+
+        // Gọi hàm với mảng số thực 4 byte
+        min_value = FindMinValue(floatArray);
+        Console.WriteLine("Min value in floatArray: " + min_value.ToString());
+
+        // Gọi hàm với mảng số thực 8 byte
+        min_value = FindMinValue(doubleArray);
+        Console.WriteLine("Min value in doubleArray: " + min_value.ToString());
+
+        Console.ReadLine();
+    }
+
+    // Hàm generic để tìm giá trị nhỏ nhất trong mảng
+    public static T FindMinValue<T>(T[] array) where T : IComparable<T>
+    {
+        if (array == null || array.Length == 0)
+        {
+            throw new ArgumentException("Array is null or empty");
+        }
+
+        T minValue = array[0];
+
+        foreach (T item in array)
+        {
+            if (item.CompareTo(minValue) < 0)
+            {
+                minValue = item;
+            }
+        }
+
+        return minValue;
+    }
+}

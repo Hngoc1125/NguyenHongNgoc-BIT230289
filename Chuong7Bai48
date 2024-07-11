@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+
+class Student
+{
+    public string ID { get; set; }
+    public double GPA { get; set; }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Dictionary<string, double> dict1 = new Dictionary<string, double>();
+        string inputID;
+        string inputGPA;
+        double gpa;
+
+        while (true)
+        {
+            Console.Write("Nhập ID sinh viên (hoặc '#' để dừng): ");
+            inputID = Console.ReadLine();
+            if (inputID == "#")
+            {
+                break;
+            }
+
+            Console.Write("Nhập điểm trung bình (GPA): ");
+            inputGPA = Console.ReadLine();
+
+            if (double.TryParse(inputGPA, out gpa) && gpa >= 0 && gpa <= 4)
+            {
+                // Thêm vào từ điển
+                dict1[inputID] = gpa;
+            }
+            else
+            {
+                Console.WriteLine("Điểm trung bình không hợp lệ. Vui lòng nhập lại.");
+            }
+        }
+
+        string searchID = "123456";
+        if (dict1.TryGetValue(searchID, out gpa))
+        {
+            Console.WriteLine($"Điểm trung bình của sinh viên có ID {searchID} là {gpa}.");
+        }
+        else
+        {
+            Console.WriteLine($"Không tìm thấy sinh viên có ID {searchID}.");
+        }
+        Console.ReadLine();
+    }
+}

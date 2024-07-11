@@ -1,0 +1,40 @@
+﻿using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] intArray = { 1, 2, 3, 4, 5 };
+        uint[] uintArray = { 1, 2, 3, 4, 5 };
+        float[] floatArray = { 1.1f, 2.2f, 3.3f, 4.4f, 5.5f };
+        double[] doubleArray = { 1.1, 2.2, 3.3, 4.4, 5.5 };
+
+        dynamic min_value;
+
+        min_value = FindMin(intArray);
+        Console.WriteLine("Min value in intArray: " + min_value);
+
+        min_value = FindMin(uintArray);
+        Console.WriteLine("Min value in uintArray: " + min_value);
+
+        min_value = FindMin(floatArray);
+        Console.WriteLine("Min value in floatArray: " + min_value);
+
+        min_value = FindMin(doubleArray);
+        Console.WriteLine("Min value in doubleArray: " + min_value);
+        Console.Read();
+    }
+
+    static T FindMin<T>(T[] array) where T : IComparable<T>
+    {
+        T min = array[0];
+        for (int i = 1; i < array.Length; i++)
+        {
+            if (array[i].CompareTo(min) < 0)
+            {
+                min = array[i];
+            }
+        }
+        return min;
+    }
+}
