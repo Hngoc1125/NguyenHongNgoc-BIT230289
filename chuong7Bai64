@@ -1,0 +1,53 @@
+﻿using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        // Tạo một mảng 2 chiều các số thực 4 byte để thử nghiệm
+        float[,] floatArray = {
+            { 1.1f, 2.2f, 3.3f },
+            { 4.4f, 5.5f, 6.6f },
+            { 7.7f, 8.8f, 9.9f }
+        };
+
+        // Tên tệp CSV để ghi
+        string fileName = "output.csv";
+
+        // Gọi hàm để ghi mảng vào tệp CSV
+        Write2DFloatArrayToCsv(fileName, floatArray);
+
+        Console.WriteLine($"Đã ghi mảng vào tệp {fileName}");
+        Console.ReadLine();
+    }
+
+    static void Write2DFloatArrayToCsv(string fileName, float[,] floatArray)
+    {
+        try
+        {
+            using (StreamWriter writer = new StreamWriter(fileName))
+            {
+                int rows = floatArray.GetLength(0);
+                int cols = floatArray.GetLength(1);
+
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < cols; j++)
+                    {
+                        if (j > 0)
+                            writer.Write(",");
+
+                        writer.Write(floatArray[i, j]);
+                    }
+                    writer.WriteLine();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Lỗi khi ghi tệp CSV: {ex.Message}");
+        }
+    }
+    
+}

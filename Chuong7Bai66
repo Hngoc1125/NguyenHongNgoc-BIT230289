@@ -1,0 +1,85 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using CsvHelper;
+using CsvHelper.Configuration;
+
+class Program
+{
+    static void Main()
+    {
+        // Tên tệp CSV cần đọc
+        string fileName = "input.csv";
+
+        // Gọi hàm để đọc tệp CSV và lưu vào mảng 2 chiều
+        float[,] floatArray = ReadCsvTo2DFloatArray(fileName);
+
+        // In ra mảng 2 chiều để kiểm tra
+        Print2DFloatArray(floatArray);
+    }
+
+    static float[,] ReadCsvTo2DFloatArray(string fileName)
+    {
+        try
+        {
+            using (var reader = new StreamReader(fileName))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                // Cho phép đọc dòng header nếu có
+                csv.Configuration.HasHeaderRecord = true;
+
+                // Đọc tất cả các record từ file CSV vào một danh sách
+                var records = csv.GetRecords<dynamic>();
+
+                // Xác định số lượng dòng và cột từ tệp CSV
+                int rowCount = records.Count;
+                int colCount = ((IDictionary<string, object>)records[0]).Count; // Số lượng cột
+
+                // Khởi tạo mảng 2 chiều để lưu trữ các số thực
+                float[,] resultArray = new float[rowCount, colCount];
+
+                // Đọc dữ liệu từ danh sách vào mảng 2 chiều
+                int row = 0;
+                foreach (var record in records)
+                {
+                    int col = 0;
+                    foreach (var pair in (IDictionary<string, object>)record)
+                    {
+                        resultArray[row, col] = Convert.ToSingle(pair.Value);
+                        col++;
+                    }
+                    row++;
+                }
+
+                return resultArray;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Lỗi khi đọc tệp CSV: {ex.Message}");
+            return null;
+        }
+    }
+
+    static void Print2DFloatArray(float[,] floatArray)
+    {
+        if (floatArray == null)
+        {
+            Console.WriteLine("Mảng rỗng hoặc không tồn tại");
+            return;
+        }
+
+        int rows = floatArray.GetLength(0);
+        int cols = floatArray.GetLength(1);
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                Console.Write(floatArray[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+}

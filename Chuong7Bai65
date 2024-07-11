@@ -1,0 +1,58 @@
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using System.Collections.Generic;
+using System.Formats.Asn1;
+using System.Globalization;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        // Tạo một Dictionary để kiểm tra
+        Dictionary<string, double> data = new Dictionary<string, double>();
+        data.Add("Item1", 12.34);
+        data.Add("Item2", 56.78);
+        data.Add("Item3", 90.12);
+
+        // Gọi hàm để ghi dữ liệu ra file CSV
+        string fileName = "output.csv";
+        WriteDictionaryToCsv(data, fileName);
+
+        System.Console.WriteLine($"Dữ liệu đã được ghi vào file {fileName}");
+    }
+
+    static void WriteDictionaryToCsv(Dictionary<string, double> data, string fileName)
+    {
+        try
+        {
+            // Cấu hình cho CsvWriter (có header và sử dụng comma làm dấu phân cách)
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = true,
+                Delimiter = ","
+            };
+
+            // Ghi dữ liệu vào file CSV
+            using (var writer = new StreamWriter(fileName))
+            using (var csv = new CsvWriter(writer, config))
+            {
+                // Viết header từ các key của Dictionary
+                csv.WriteHeader<string>();
+                csv.NextRecord();
+
+                // Viết dữ liệu từ các value của Dictionary
+                foreach (var item in data)
+                {
+                    csv.WriteField(item.Key);
+                    csv.WriteField(item.Value);
+                    csv.NextRecord();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Console.WriteLine($"Lỗi khi ghi file CSV: {ex.Message}");
+        }
+    }
+}

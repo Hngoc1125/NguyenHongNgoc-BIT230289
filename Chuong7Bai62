@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+
+class Program
+{
+    static void Main()
+    {
+        string fileName = "data.json";
+        Dictionary<string, object> dictionary = ReadJsonFileToDictionary(fileName);
+
+        foreach (var kvp in dictionary)
+        {
+            Console.WriteLine($"Key: {kvp.Key}, Value: {kvp.Value}");
+        }
+        Console.ReadLine();
+    }
+
+    static Dictionary<string, object> ReadJsonFileToDictionary(string fileName)
+    {
+        string jsonString = File.ReadAllText(fileName);
+        Dictionary<string, object> dictionary = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonString);
+        return dictionary;
+    }
+}

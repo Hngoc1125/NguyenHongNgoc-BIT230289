@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+
+class Program
+{
+    static void Main()
+    {
+        // Tạo một Dictionary để thử nghiệm
+        Dictionary<string, object> dictionary = new Dictionary<string, object>
+        {
+            { "name", "John Doe" },
+            { "age", 30 },
+            { "isStudent", false },
+            { "courses", new List<string> { "Math", "Science" } },
+            { "address", new Dictionary<string, string> { { "city", "New York" }, { "zip", "10001" } } }
+        };
+
+        // Gọi hàm để ghi Dictionary ra tệp JSON
+        string fileName = "output.json";
+        bool success = WriteDictionaryToJsonFile(fileName, dictionary);
+
+        // Kiểm tra kết quả
+        if (success)
+        {
+            Console.WriteLine($"Ghi thành công tệp JSON ra {fileName}");
+        }
+        else
+        {
+            Console.WriteLine("Ghi tệp JSON thất bại");
+        }
+        Console.ReadLine();
+    }
+
+    static bool WriteDictionaryToJsonFile(string fileName, Dictionary<string, object> dictionary)
+    {
+        try
+        {
+            string jsonString = JsonSerializer.Serialize(dictionary);
+            File.WriteAllText(fileName, jsonString);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Lỗi khi ghi tệp JSON: {ex.Message}");
+            return false;
+        }
+    }
+}
