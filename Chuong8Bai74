@@ -1,0 +1,59 @@
+﻿using System;
+using System.Data.SqlClient;
+
+namespace Database_Operation
+{
+    class SelectStatement
+    {
+        static void Main()
+        {
+            Read();
+            Console.ReadKey();
+        }
+
+        static void Read()
+        {
+            string constr;
+            SqlConnection conn;
+
+            // Chuỗi kết nối sửa đổi
+            constr = @"Data Source =localhost\SQLEXPRESS;Initial Catalog=Demodb1;User Id=SA;Password=CodeWithArjun123;";
+
+            try
+            {
+                conn = new SqlConnection(constr);
+                conn.Open();
+                Console.WriteLine("Kết nối thành công!");
+
+                SqlCommand cmd;
+                SqlDataReader dreader;
+                string sql, output = "";
+                sql = "Select articleID, articleName from demo";
+                cmd = new SqlCommand(sql, conn);
+                dreader = cmd.ExecuteReader();
+
+                // Đọc từng dòng của bảng
+                while (dreader.Read())
+                {
+                    output = output + dreader.GetValue(0) + " - " +
+                                        dreader.GetValue(1) + "\n";
+                }
+
+                Console.Write(output);
+
+                // Đóng các đối tượng
+                dreader.Close();
+                cmd.Dispose();
+                conn.Close();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Lỗi SQL: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi: " + ex.Message);
+            }
+        }
+    }
+}

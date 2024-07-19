@@ -1,0 +1,29 @@
+﻿
+using System;
+using System.Data.SqlClient;
+using System.Text;
+namespace Database_Operation
+{
+    class DBConn
+    {
+
+        static void Main()
+        {
+            Connect();
+            Console.ReadKey();
+        }
+
+        static void Connect()
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            string constr;
+            SqlConnection conn;
+            constr = @"Data Source=loc\SQLEXPRESS;Initial Catalog=Demodb1;User ID=;Password=CodeWithArjun123.";
+            conn = new SqlConnection(constr);
+            conn.Open();
+            Console.WriteLine("Mở kết nối!");
+
+            conn.Close();
+        }
+    }
+}
