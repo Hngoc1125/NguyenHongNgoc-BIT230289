@@ -1,0 +1,18 @@
+﻿using System;
+using System.Threading;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        var thread = new Thread(() =>
+        {
+            Console.WriteLine("Thread bắt đầu.");
+            Thread.Sleep(1000);
+            Console.WriteLine("Thread kết thúc.");
+        });
+        thread.Start();
+        thread.Join(); // Đợi thread hoàn thành
+        Console.ReadLine();
+    }
+}
